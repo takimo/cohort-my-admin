@@ -1,30 +1,24 @@
 // navbar
 include ../navbar
-div.container
-  div.subnav
-    ul.nav.nav-pills
-      li.active
-        a(href="/cohort/#{id}") グラフを見る
-      li
-        a(href="/cohort/#{id}/add") データを追加する
-      li
-        a#moveDay(href='javascript:void(0);') 日付を指定して移動する
-        script
-          $("#moveDay").click(function(event){
-            var date = prompt("日付を入力してください(YYYYMMDD)");
-            if(date){
-              location.href="/cohort/!{id}/" + date;
-            }
-          });
-  h1 #{id}/#{today}
+
+include ../subnav
 
 div.container
-  div#chartdiv(style="width:100%;height:400px")
+  h1 #{id}/#{targetDay}
+
+div.container
   ul.pager
     li.previous
       a(href="/cohort/#{id}/#{previousDay}") &larr; #{previousDay}
     li.next
       a(href="/cohort/#{id}/#{nextDay}") #{nextDay} &rarr;
+  if !rawData
+    div.alert.alert-info
+      a.close(data-dismiss="alert",href="#") x
+      h4 データがありません
+      上記「データを追加するから」データを入力してください。
+  else
+    div#chartdiv(style="width:100%;height:400px")
 
 if cohortData
 div.container

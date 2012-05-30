@@ -33,7 +33,8 @@ app.get('/', routes.index);
 
 app.get('/cohort', routes.cohort_index);
 app.all('/cohort/create', routes.cohort_create);
-app.all('/cohort/:id/add', routes.cohort_add);
+app.all('/cohort/:id/setting', routes.cohort_setting);
+app.all('/cohort/:id/add/:date?', routes.cohort_add);
 app.all('/cohort/:id/fill', routes.cohort_fill);
 app.get('/cohort/:id/:date?', routes.cohort_view);
 

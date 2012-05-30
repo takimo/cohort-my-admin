@@ -1,21 +1,6 @@
 include ../navbar
 
-div.container
-  div.subnav
-    ul.nav.nav-pills
-      li
-        a(href="/cohort/#{id}") グラフを見る
-      li.active
-        a(href="/cohort/#{id}/add") データを追加する
-      li
-        a#moveDay(href='javascript:void(0);') 日付を指定して移動する
-        script
-          $("#moveDay").click(function(event){
-            var date = prompt("日付を入力してください(YYYYMMDD)");
-            if(date){
-              location.href="/cohort/!{id}/" + date;
-            }
-          });
+include ../subnav
 
 div.container
   h1 #{id}
@@ -29,7 +14,7 @@ div.container
       div.control-group
         label.control-label(for="input01") 日付("YYYYMMDD")
         div.controls
-          input.input-xlarge(type="text",name="date",value=today)
+          input.input-xlarge(type="text",name="date",value=targetDay)
       div.control-group
         label.control-label(for="textarea") JSON
         div.controls

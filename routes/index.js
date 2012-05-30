@@ -29,6 +29,10 @@ var getCohorts = function(){
   return items;
 };
 
+var getDay = function(date){
+  return (date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + date.getDate()).slice(-2));
+}
+
 var loadAllData = promise()
   .bind(function(next, value){
     var cohorts = [];
@@ -52,7 +56,7 @@ exports.cohort_index = function(req, res){
     });
   });
   res.render('cohort/index', {
-    title: 'Express',
+    title: 'CohortMyAdmin',
     cohorts: getCohorts(),
     cohortData: items,
     id: null
@@ -62,7 +66,7 @@ exports.cohort_index = function(req, res){
 exports.cohort_create = function(req, res){
   if(!req.body.id){
     return res.render('cohort/create', {
-      title: 'Express',
+      title: 'CohortMyAdmin',
       cohorts: getCohorts(),
       id: null
     });
@@ -83,10 +87,35 @@ exports.cohort_create = function(req, res){
   });
 };
 
+exports.cohort_setting = function(req, res){
+  if(req.body.title){
+    cohortDB.set(req.params.id, {
+      title: req.body.title,
+      acquisition: req.body.acquisition,
+      activation: req.body.activation,
+      retention: req.body.retention,
+      revenue: req.body.revenue,
+      referral: req.body.referral
+    }, function(){
+      res.redirect('/cohort/' + req.params.id + "/");
+    });
+  }else{
+    var cohort = cohortDB.get(req.params.id);
+    res.render('cohort/setting', {
+      title: 'CohorotMyAdmin',
+      navmode: 'setting',
+      cohort: cohort,
+      targetDay: getDay(new Date()),
+      cohorts: getCohorts(),
+      id: req.params.id
+    });
+  }
+};
+
 exports.cohort_fill = function(req, res){
   if(!req.body.data){
     return res.render('cohort/fill', {
-      title: 'Express',
+      title: 'CohortMyAdmin',
       id: req.params.id
     });
   }
@@ -103,9 +132,6 @@ exports.cohort_fill = function(req, res){
   res.send('filled!');
 };
 
-var getDay = function(date){
-  return (date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + date.getDate()).slice(-2));
-}
 exports.cohort_view = function(req, res){
   var date = new Date();
   var today = getDay(date);
@@ -143,10 +169,11 @@ exports.cohort_view = function(req, res){
   }
   var cohortData = cohortDB.get(req.params.id);
   res.render('cohort/view', {
-    title: 'Express',
+    title: 'CohortMyAdmin',
+    navmode: 'view',
     cohorts: getCohorts(),
     id: req.params.id,
-    today: targetDay,
+    targetDay: targetDay,
     nextDay: nextDay,
     previousDay: previousDay,
     json: JSON.stringify(chartData),
@@ -158,16 +185,18 @@ exports.cohort_view = function(req, res){
 exports.cohort_add = function(req, res){
   var date = new Date();
   var today = (date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + date.getDate()).slice(-2));
+  var targetDay = (req.params.date) ? req.params.date : today;
   if(req.body.date){
     var json;
     try{
       json = JSON.parse(req.body.data);
     }catch(e){
       return res.render('cohort/add', {
-        title: 'Express',
+        title: 'CohortMyAdmin',
+        navmode: 'add',
         cohorts: getCohorts(),
         id: req.params.id,
-        today: today,
+        targetDay: targetDay,
         error: "can't parse JSON"
       });
     }
@@ -176,10 +205,11 @@ exports.cohort_add = function(req, res){
     });
   }else{
     res.render('cohort/add', {
-      title: 'Express',
+      title: 'CohortMyAdmin',
+      navmode: 'add',
       cohorts: getCohorts(),
       id: req.params.id,
-      today: today,
+      targetDay: targetDay,
       error: ""
     });
   }

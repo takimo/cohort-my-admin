@@ -1,0 +1,30 @@
+div.container
+  div.subnav
+    ul.nav.nav-pills
+      if navmode == "view"
+        li.active
+          a(href="/cohort/#{id}") グラフを見る
+      else
+        li
+          a(href="/cohort/#{id}") グラフを見る
+      if navmode == "add"
+        li.active
+          a(href="/cohort/#{id}/add/#{targetDay}") データを追加する
+      else
+        li
+          a(href="/cohort/#{id}/add/#{targetDay}") データを追加する
+      if navmode == "setting"
+        li.active
+          a(href="/cohort/#{id}/setting") コホートの設定を変更する
+      else
+        li
+          a(href="/cohort/#{id}/setting") コホートの設定を変更する
+      li
+        a#moveDay(href='javascript:void(0);') 日付を指定して移動する
+        script
+          $("#moveDay").click(function(event){
+            var date = prompt("日付を入力してください(YYYYMMDD)");
+            if(date){
+              location.href="/cohort/!{id}/" + date;
+            }
+          });
