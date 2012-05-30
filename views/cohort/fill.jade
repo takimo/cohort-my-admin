@@ -1,0 +1,25 @@
+// navbar
+div.navbar.navbar-fixed-top
+  div.navbar-inner
+    div.container
+      a.brand(href='#') Project Name
+      ul.nav
+        each item in cohorts
+        li
+          a(href="/cohort/#{item}")= item
+
+div.container
+  h2 データの追加
+  form.form-horizontal(
+    action="/cohort/fill/#{id}",
+    method="POST"
+  )
+    fieldset
+      div.control-group
+        label.control-label(for="textarea") CSV
+        div.controls
+          textarea.input-xlarge(rows="3",name="data")
+      div.form-actions
+        button.btn.btn-primary(type="submit") 送信
+        button.btn キャンセル
+

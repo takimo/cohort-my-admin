@@ -1,0 +1,39 @@
+include ../navbar
+
+div.container
+  div.subnav
+    ul.nav.nav-pills
+      li
+        a(href="/cohort/#{id}") グラフを見る
+      li.active
+        a(href="/cohort/#{id}/add") データを追加する
+      li
+        a#moveDay(href='javascript:void(0);') 日付を指定して移動する
+        script
+          $("#moveDay").click(function(event){
+            var date = prompt("日付を入力してください(YYYYMMDD)");
+            if(date){
+              location.href="/cohort/!{id}/" + date;
+            }
+          });
+
+div.container
+  h1 #{id}
+  if error != ""
+    div.alert.alert-error= error
+  form.form-horizontal(
+    action="/cohort/#{id}/add",
+    method="POST"
+  )
+    fieldset
+      div.control-group
+        label.control-label(for="input01") 日付("YYYYMMDD")
+        div.controls
+          input.input-xlarge(type="text",name="date",value=today)
+      div.control-group
+        label.control-label(for="textarea") JSON
+        div.controls
+          textarea.input-xlarge(rows="10",name="data")
+      div.form-actions
+        button.btn.btn-primary(type="submit") 送信
+        button.btn キャンセル

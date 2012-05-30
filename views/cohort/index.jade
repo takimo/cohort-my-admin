@@ -1,0 +1,23 @@
+include ../navbar
+
+div.container
+  div.hero-unit
+    h2 あなたもコホート分析してみませんか？
+    p 「虚栄の評価基準」だけで評価するのを見直そう
+    p
+      a.btn.btn-primary.btn-large(href="/cohort/create") はじめる
+
+div.container
+  div.page-header
+    h1 管理しているコホート一覧
+
+div.container
+  each cohort in cohortData
+    h2
+      a(href="/cohort/#{cohort.id}")= cohort.title
+    table.table.table-striped.table-bordered.table-condensed
+      tbody
+        each value, key in cohort.data
+          tr
+            td= key
+            td= value

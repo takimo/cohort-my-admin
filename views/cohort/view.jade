@@ -1,0 +1,45 @@
+// navbar
+include ../navbar
+div.container
+  div.subnav
+    ul.nav.nav-pills
+      li.active
+        a(href="/cohort/#{id}") グラフを見る
+      li
+        a(href="/cohort/#{id}/add") データを追加する
+      li
+        a#moveDay(href='javascript:void(0);') 日付を指定して移動する
+        script
+          $("#moveDay").click(function(event){
+            var date = prompt("日付を入力してください(YYYYMMDD)");
+            if(date){
+              location.href="/cohort/!{id}/" + date;
+            }
+          });
+  h1 #{id}/#{today}
+
+div.container
+  div#chartdiv(style="width:100%;height:400px")
+  ul.pager
+    li.previous
+      a(href="/cohort/#{id}/#{previousDay}") &larr; #{previousDay}
+    li.next
+      a(href="/cohort/#{id}/#{nextDay}") #{nextDay} &rarr;
+
+if cohortData
+div.container
+    table.table.table-striped.table-bordered.table-condensed
+      tbody
+        each value, key in cohortData
+          tr
+            td= key
+            td= value
+
+div.container
+  div#results(style="display:none")
+
+script
+  var chartData = !{json};
+  var rawData = !{rawData};
+script(src="/js/chart.js",type="text/javascript")
+script(src="/js/jsontable.js",type="text/javascript")

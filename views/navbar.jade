@@ -1,0 +1,17 @@
+div.navbar.navbar-fixed-top
+  div.navbar-inner
+    div.container
+      a.brand(href='/cohort') cohortMyAdmin
+      ul.nav
+        each item in cohorts
+          - if(item == id) {
+            li.active
+              a(href="/cohort/#{item}")= item
+          - }else{
+            li
+              a(href="/cohort/#{item}")= item
+          - }
+      ul.nav.pull-right
+        li
+          a(href="/cohort/create") 新しいCohortを作る
+
