@@ -111,7 +111,6 @@ exports.cohort_view = function(req, res){
   var today = getDay(date);
   var targetDay = (req.params.date) ? req.params.date : today;
   var targetDate = new Date(targetDay.slice(0,4) + "/" + targetDay.slice(4,6) + "/" + targetDay.slice(6,8));
-  console.log(targetDate.toLocaleString());
 
   var nextDate = new Date(targetDate.getTime() + 86400000);
   var previousDate = new Date(targetDate.getTime() - 86400000);
