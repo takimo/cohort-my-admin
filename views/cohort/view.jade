@@ -7,11 +7,6 @@ div.container
   h1 #{id}/#{targetDay}
 
 div.container
-  ul.pager
-    li.previous
-      a(href="/cohort/#{id}/#{previousDay}") &larr; #{previousDay}
-    li.next
-      a(href="/cohort/#{id}/#{nextDay}") #{nextDay} &rarr;
   if !rawData
     div.alert.alert-info
       a.close(data-dismiss="alert",href="#") x
@@ -19,6 +14,11 @@ div.container
       上記「データを追加するから」データを入力してください。
   else
     div#chartdiv(style="width:100%;height:400px")
+  ul.pager
+    li.previous
+      a(href="/cohort/#{id}/#{previousDay}") &larr; #{previousDay}
+    li.next
+      a(href="/cohort/#{id}/#{nextDay}") #{nextDay} &rarr;
 
 if cohortData
 div.container
