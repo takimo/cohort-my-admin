@@ -8,11 +8,12 @@ div.container
     method="POST"
   )
     fieldset
+      legend 基本設定
       div.control-group
         label.control-label(for="input01") タイトル
         div.controls
           input.input-xlarge(type="text",name="title",value=cohort.title)
-      legend コホート設定
+      legend コホート
       div.control-group
         label.control-label(for="input01") Acquisition
         div.controls
@@ -33,6 +34,11 @@ div.container
         label.control-label(for="input01") Referral
         div.controls
           input.input-xlarge(type="text",name="referral",value=cohort.referral)
+      legend リンク
+      div.control-group
+        label.control-label(for="input01") URL
+        div.controls
+          input.input-xlarge(type="text",name="link",value=cohort.link)
       div.form-actions
         button.btn.btn-primary(type="submit") 送信
         button.btn キャンセル

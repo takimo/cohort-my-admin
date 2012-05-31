@@ -77,7 +77,8 @@ exports.cohort_create = function(req, res){
     activation: req.body.activation,
     retention: req.body.retention,
     revenue: req.body.revenue,
-    referral: req.body.referral
+    referral: req.body.referral,
+    link: req.body.link
   }, function(){
     var db = require('dirty')('./data/' + req.body.id + '.db');
     db.on('load', function(){
@@ -95,7 +96,8 @@ exports.cohort_setting = function(req, res){
       activation: req.body.activation,
       retention: req.body.retention,
       revenue: req.body.revenue,
-      referral: req.body.referral
+      referral: req.body.referral,
+      link: req.body.link
     }, function(){
       res.redirect('/cohort/' + req.params.id + "/");
     });
