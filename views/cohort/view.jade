@@ -20,11 +20,11 @@ div.container
     li.next
       a(href="/cohort/#{id}/#{nextDay}") #{nextDay} &rarr;
 
-if cohortData
 div.container
-    table.table.table-striped.table-bordered.table-condensed
-      tbody
-        each value, key in cohortData
+  table.table.table-striped.table-bordered.table-condensed
+    tbody
+      each value, key in cohortData
+        if key != "title"
           tr
             td= key
             td= value
