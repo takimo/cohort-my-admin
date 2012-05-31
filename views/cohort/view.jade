@@ -21,13 +21,22 @@ div.container
       a(href="/cohort/#{id}/#{nextDay}") #{nextDay} &rarr;
 
 div.container
-  table.table.table-striped.table-bordered.table-condensed
-    tbody
-      each value, key in cohortData
-        if key != "title"
+  div.row
+    div.span6
+      table.table.table-striped.table-bordered.table-condensed
+        tbody
+          each value, key in cohortData
+            if key != "title"
+              tr
+                td= key
+                td= value
+    div.span6
+      table.table.table-striped.table-bordered.table-condensed
+        tbody
           tr
-            td= key
-            td= value
+            td Link
+            td
+              a(href=cohortData.link,target="_blank")= cohortData.link
 
 div.container
   div#results(style="display:none")
